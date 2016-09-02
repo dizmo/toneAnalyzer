@@ -25,12 +25,12 @@ function drawPieChart(div, values, colors) {
   var pie = new d3pie(div, {
   	header: {
   		title: {
-  			text: "Fun with Colours"
+  			text: "Emotions"
   		}
   	},
   	size: {
   		pieOuterRadius: "100%",
-  		canvasHeight: 360
+  		canvasHeight: 300
   	},
   	data: {
       content : values,
@@ -92,7 +92,12 @@ window.document.addEventListener('dizmoready', function() {
         dizmo.showFront();
     };
 
-    dizmo.setHeight(500);
+    dizmo.setHeight(700);
     dizmo.setWidth(700);
+
+    DizmoElements('#analyze-button').on('click',function(){
+      text = DizmoElements('#input-text').val();
+      getAnalysisFromText();
+    });
 
 });
