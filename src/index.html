@@ -9,11 +9,27 @@
 </head>
 <body>
     <div id="front">
-	     <div id="charts">
-	      </div>
-        <textarea id="input-text" data-type="dizmo-textarea" cols=70 rows=15></textarea>
+        <div id="hexagon-wrapper" style="display: none">
+          <div class="hexagon" >
+            <div id="inner">
+
+            </div>
+          </div>
+      </div>
+
+      <div id="first">
+      </div>
+      <div id="hexagon">
+        <div id="charts">
+        </div>
+        <textarea class="no-dizmo-drag" placeholder="Enter your text or dock this dizmo"></textarea>
         <button id="analyze-button" data-type="dizmo-button">Analyze</button>
+      </div>
+      <div id="third">
+      </div>
+
     </div>
+
     <div id="back">
         <div class="done-btn-wrapper">
             <button id="doneBtn" class="done-btn" data-type="dizmo-button">Done</button>
