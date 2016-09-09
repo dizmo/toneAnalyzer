@@ -10,7 +10,16 @@ body {
 
 #front {
     width: 100%;
-
+    #loading-overlay{
+      display: none;
+      position: fixed;
+      top: 100px;
+      width: 100%;
+      text-align: center;
+      img {
+        width: 200px;
+      }
+    }
     #charts {
         position: relative;
         top: 20px;
@@ -80,6 +89,7 @@ textarea{
   border: none;
   height: 250px;
   color: white;
+  resize: none;
   background-color: rgba(230, 230, 230, 0.05);
 }
 button {

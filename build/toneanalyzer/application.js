@@ -2,11 +2,11 @@
 // can delete it!
 
 //
-var data, ajax;
+var data, ajax,subscriptionId;
 //
-var baseurl = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19&text=";
-var username = "a67c42a8-c251-421b-bb00-6e962d446a96";
-var password = "lfwQRxM22ujP";
+var baseurl = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19";
+var username = "0494a328-abab-461f-a56a-ef5cb78b7fec";
+var password = "PNRn7Sl4tMjl";
 var text;
 
 function showBack() {
@@ -17,7 +17,7 @@ var emotions = [
 			{ label: "disgust", value: 0 },
 			{ label: "fear", value: 0 },
 			{ label: "joy", value: 0 },
-			{ label: "sadness Tern", value: 0 }
+			{ label: "sadness", value: 0 }
 		];
 var emotioncolors = [ "#A90418", "#592684", "#325E2B", "#FFD629", "#086DB2"];
 
@@ -50,7 +50,12 @@ function drawPieChart(div, values, colors, label, width) {
   			text: label,
         color: "white",
         font: "VAG Rounded"
-  		}
+  		},
+      subtitle: {
+        text: " "
+      },
+      location: "top-center",
+      titleSubtitlePadding: 15
   	},
   	size: {
   		pieOuterRadius: "100%",
@@ -62,6 +67,9 @@ function drawPieChart(div, values, colors, label, width) {
       content : values,
   	},
     labels : {
+      inner: {
+        hideWhenLessThanPercentage: 10,
+      },
       mainLabel: {
         color: "white",
         font: "VAG Rounded",
@@ -93,15 +101,16 @@ function getAnalysisFromText(){
     url: baseurl,
     dataType: 'json',
     contentType: 'text/plain',
-    async: false,
+    async: true,
     data: text,
     beforeSend: function (xhr){
       xhr.setRequestHeader('Authorization', make_base_auth(username, password));
     },
     success: function (res){
       data = res;
-      updateData(res)
+      updateData(res);
       jQuery('#charts').empty();
+      jQuery('#loading-overlay').hide();
       drawPieChart("charts",emotions, emotioncolors, "emotions", 500);
       if (lang.show) {
         drawPieChart("charts",lang, langcolors, "languages", 350);
@@ -137,8 +146,8 @@ function updateData(data) {
     }
   }
   tones = data.document_tone.tone_categories[2].tones;
-  for (var i = 0; i < tones.length; i++) {
-    social[i].value = tones[i].score;
+  for (var j = 0; j < tones.length; j++) {
+    social[j].value = tones[j].score;
   }
 }
 
@@ -151,10 +160,35 @@ window.document.addEventListener('dizmoready', function() {
 
     dizmo.setHeight(811);
     dizmo.setWidth(935);
+    dizmo.canDock(true);
     dizmo.setAttribute('settings/frameopacity', 0);
     DizmoElements('#analyze-button').on('click',function(){
       text = jQuery('textarea').val();
+      if (text !== "") {
+        jQuery('#charts').empty();
+        jQuery('#loading-overlay').show();
+      }
       getAnalysisFromText();
     });
+    dizmo.onDock(function(dockingDizmo){
+      console.log('Docked to dizmo with id ' + dockingDizmo.identifier);
+      console.log('text: ' + dockingDizmo.publicStorage.getProperty('stdout'));
+      if (dockingDizmo.publicStorage.getProperty('stdout') !== "") {
+        DizmoElements('textarea').val(dockingDizmo.publicStorage.getProperty('stdout'));
+        jQuery('#analyze-button').click();
+      }
+
+      subscriptionId = dockingDizmo.publicStorage.subscribeToProperty('stdout', function(path, val, oldVal) {
+        var stdout = val;
+        // do something with the stdout variable
+        DizmoElements('textarea').val(stdout);
+        jQuery('#analyze-button').click();
+      });
+    });
+    dizmo.onUndock(function(undockedDizmo) {
+      dizmo.publicStorage.unsubscribeProperty(subscriptionId);
+    });
+
+
 
 });

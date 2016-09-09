@@ -7,6 +7,14 @@
 
     #front {
       width: 100%; }
+      #front #loading-overlay {
+        display: none;
+        position: fixed;
+        top: 100px;
+        width: 100%;
+        text-align: center; }
+        #front #loading-overlay img {
+          width: 200px; }
       #front #charts {
         position: relative;
         top: 20px;
@@ -44,6 +52,7 @@
       border: none;
       height: 250px;
       color: white;
+      resize: none;
       background-color: rgba(230, 230, 230, 0.05); }
 
       button {
