@@ -2,34 +2,162 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>toneanalyzer</title>
+    <title>ibm-ToneAnalyzer</title>
 
     <!-- Your own stylesheet (do not remove!)-->
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
+
     <div id="front">
-      <div id="loading-overlay">
-        <img src="style/loading.gif" />
+      <div id="default-display">
+        <img id="default-logo" src="style/default.png"/>
+        <img id="loading-icon" src="style/loading.gif"/>
       </div>
-        <div id="hexagon-wrapper" style="display: none">
-          <div class="hexagon" >
-            <div id="inner">
+      <div id="navigation-tab" class="front-wrapper">
+        <button id="emotion-btn" view="emotion" data-type="dizmo-button">Emotion</button>
+        <button id="language-btn" view="language" data-type="dizmo-button">Language Style</button>
+        <button id="social-btn" view="social" data-type="dizmo-button">Social Tendencies</button>
+      </div>
 
-            </div>
+      <div id="views" class="front-wrapper">
+
+        <div id="emotion" class="front-view">
+
+          <div id="anger-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-anger.svg"/>
+            <div id="anger" class="bar">
+            	<span class="label">Anger</span>
+          		<span class="percentage">0.1 unlikely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="anger" name="emotion">
           </div>
+
+          <div id="disgust-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-disgust.svg"/>
+          	<div id="disgust" class="bar">
+          		<span class="label">Disgust</span>
+          		<span class="percentage">0.85 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="disgust" name="emotion">
+          </div>
+
+          <div id="fear-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-fear.svg"/>
+            <div id="fear" class="bar">
+          		<span class="label">Fear</span>
+          		<span class="percentage">0.28 unlikely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="fear" name="emotion">
+          </div>
+
+          <div id="joy-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-joy.svg"/>
+            <div id="joy" class="bar">
+              <span class="label">Joy</span>
+              <span class="percentage">0.08 unlikely</span>
+            </div>
+            <input type="radio" data-type="dizmo-radiobutton" value="joy" name="emotion">
+          </div>
+
+          <div id="sadness-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-sadness.svg"/>
+            <div id="sadness" class="bar">
+          		<span class="label">Sadness</span>
+          		<span class="percentage">0.88 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="sadness" name="emotion">
+          </div>
+
+        </div>
+
+
+
+        <div id="language" class="front-view">
+          <div id="analytical-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-analytical.svg"/>
+            <div id="analytical" class="bar">
+            	<span class="label">Analytical</span>
+          		<span class="percentage">0.98 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="analytical" name="language">
+          </div>
+
+          <div id="confident-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-confident.svg"/>
+          	<div id="confident" class="bar">
+          		<span class="label">Confident</span>
+          		<span class="percentage">0.98 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="confident" name="language">
+          </div>
+
+          <div id="tentative-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-tentative.svg"/>
+            <div id="tentative" class="bar">
+          		<span class="label">Tentative</span>
+          		<span class="percentage">0.98 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="tentative" name="language">
+          </div>
+
+        </div>
+
+        <div id="social" class="front-view">
+
+          <div id="openness-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-openness.svg"/>
+            <div id="openness" class="bar">
+            	<span class="label">Openness</span>
+          		<span class="percentage">0.98 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="openness" name="social">
+          </div>
+
+          <div id="conscientiousness-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-conscientiousness.svg"/>
+            <div id="conscientiousness" class="bar">
+            	<span class="label">Conscientiousness</span>
+          		<span class="percentage">0.98 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="conscientiousness" name="social">
+          </div>
+
+          <div id="extraversion-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-extraversion.svg"/>
+            <div id="extraversion" class="bar">
+              <span class="label">Extraversion</span>
+              <span class="percentage">0.98 likely</span>
+            </div>
+            <input type="radio" data-type="dizmo-radiobutton" value="extraversion" name="social">
+          </div>
+
+          <div id="agreeableness-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-agreeableness.svg"/>
+            <div id="agreeableness" class="bar">
+            	<span class="label">Agreeableness</span>
+          		<span class="percentage">0.98 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="agreeableness" name="social">
+          </div>
+
+          <div id="emotionalrange-wrapper" class="bar-wrapper">
+            <img class="icon" src="style/icons/icon-emotional-range.svg"/>
+            <div id="emotionalrange" class="bar">
+            	<span class="label">Emotional Range</span>
+          		<span class="percentage">0.98 likely</span>
+          	</div>
+            <input type="radio" data-type="dizmo-radiobutton" value="emotionalrange" name="social">
+          </div>
+
+        </div>
       </div>
 
-      <div id="first">
-      </div>
-      <div id="hexagon">
-        <div id="charts">
-        </div>
-        <textarea class="no-dizmo-drag" placeholder="Enter your text or dock this dizmo"></textarea>
-        <button id="analyze-button" data-type="dizmo-button">Analyze</button>
-      </div>
-      <div id="third">
-      </div>
+    <div id="text-input-wrapper" class="front-wrapper">
+      <textarea id="text-input" data-type="dizmo-textarea" cols="43" rows="10" placeholder="Enter a Text to be analysed"></textarea>
+      <button id="analyse-btn" data-type="dizmo-button">Analyse</button>
+    </div>
+
 
     </div>
 
@@ -41,8 +169,7 @@
 
     <!-- Your own JavaScript (do not remove!) -->
     <script type="text/javascript" src="application.js"></script>
-    <script type="text/javascript" src="lib/d3pie.js"></script>
-    <script type="text/javascript" src="lib/d3.min.js"></script>
-    <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="lib/progressbar.js"></script>
+    <script type="text/javascript" src="lib/jquery-3.1.0.min.js"></script>
 </body>
 </html>

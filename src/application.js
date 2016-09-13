@@ -1,7 +1,8 @@
 // If your dizmo has a back side, include this function. Otherwise you
 // can delete it!
+var selectedView, selectedEmotion, selectedLanguage, selectedSocial;
+var globalsettings = {};
 
-//
 var data, ajax,subscriptionId;
 //
 var baseurl = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19";
@@ -9,86 +10,10 @@ var username = "0494a328-abab-461f-a56a-ef5cb78b7fec";
 var password = "PNRn7Sl4tMjl";
 var text;
 
-function showBack() {
-    dizmo.showBack();
-}
-var emotions = [
-			{ label: "anger", value: 0 },
-			{ label: "disgust", value: 0 },
-			{ label: "fear", value: 0 },
-			{ label: "joy", value: 0 },
-			{ label: "sadness", value: 0 }
-		];
-var emotioncolors = [ "#A90418", "#592684", "#325E2B", "#FFD629", "#086DB2"];
-
-var social = [
-			{ label: "Openness", value: 0 },
-			{ label: "Conscientiousness", value: 0 },
-			{ label: "Extraversion", value: 0 },
-      { label: "Agreeableness", value: 0 },
-      { label: "Emotional Range ", value: 0 }
-		];
-var socialcolors = [ "#A90418", "#592684", "#325E2B", "#FFD629", "#086DB2"];
-
-
-
-
-
-
-var lang = [
-			{ label: "analytical", value: 0 },
-			{ label: "confident", value: 0 },
-			{ label: "tentative", value: 0 }
-		];
-var langcolors = [ "#A90418", "#592684", "#325E2B", "#FFD629", "#086DB2"];
-
-
-function drawPieChart(div, values, colors, label, width) {
-  var pie = new d3pie(div, {
-  	header: {
-  		title: {
-  			text: label,
-        color: "white",
-        font: "VAG Rounded"
-  		},
-      subtitle: {
-        text: " "
-      },
-      location: "top-center",
-      titleSubtitlePadding: 15
-  	},
-  	size: {
-  		pieOuterRadius: "100%",
-      // pieInnerRadius: "60%",
-  		canvasHeight: 200,
-      canvasWidth: width
-  	},
-  	data: {
-      content : values,
-  	},
-    labels : {
-      inner: {
-        hideWhenLessThanPercentage: 10,
-      },
-      mainLabel: {
-        color: "white",
-        font: "VAG Rounded",
-        fontSize: 10
-      },
-      lines: {
-        enabled: true,
-        style: "straight",
-        color: "white" // "segment" or a hex color
-      }
-    },
-  	misc: {
-  		colors: {
-  			segments: colors
-  		}
-  	}
-  });
-
-}
+//
+// function showBack() {
+//     dizmo.showBack();
+// }
 function make_base_auth(user, password) {
   var tok = user + ':' + password;
   var hash = btoa(tok);
@@ -108,49 +33,94 @@ function getAnalysisFromText(){
     },
     success: function (res){
       data = res;
-      updateData(res);
-      jQuery('#charts').empty();
-      jQuery('#loading-overlay').hide();
-      drawPieChart("charts",emotions, emotioncolors, "emotions", 500);
-      if (lang.show) {
-        drawPieChart("charts",lang, langcolors, "languages", 350);
+      jQuery('svg').remove();
 
-      }
-      drawPieChart("charts",social, socialcolors, "social", 350);
+      drawProgress(anger, data.document_tone.tone_categories[0].tones[0].score , 'rgba(239,59,69,0.4)' , 'rgba(239,59,69,0.3)', 'anger');
+      jQuery('#anger .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[0].score, "emotion"));
+
+      drawProgress(disgust, data.document_tone.tone_categories[0].tones[1].score , 'rgba(142,73,156,0.4)' , 'rgba(142,73,156,0.3)', 'disgust');
+      jQuery('#disgust .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[1].score, "emotion"));
+
+      drawProgress(fear, data.document_tone.tone_categories[0].tones[2].score , 'rgba(127,137,55,0.4)' , 'rgba(127,137,55,0.3)', 'fear');
+      jQuery('#fear .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[2].score, "emotion"));
+
+      drawProgress(joy, data.document_tone.tone_categories[0].tones[3].score , 'rgba(236,209,47,0.4)' , 'rgba(236,209,47,0.3)', 'joy');
+      jQuery('#joy .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[3].score, "emotion"));
+
+      drawProgress(sadness, data.document_tone.tone_categories[0].tones[4].score , 'rgba(88,154,200,0.4)' , 'rgba(88,154,200,0.3)', 'sadness');
+      jQuery('#sadness .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[4].score, "emotion"));
+
+
+      drawProgress(analytical, data.document_tone.tone_categories[1].tones[0].score , 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)','analytical');
+      drawProgress(confident, data.document_tone.tone_categories[1].tones[1].score, 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)','confident');
+      drawProgress(tentative, data.document_tone.tone_categories[1].tones[2].score , 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)', 'tentative');
+
+      drawProgress(openness, data.document_tone.tone_categories[2].tones[0].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'openness');
+      drawProgress(conscientiousness, data.document_tone.tone_categories[2].tones[1].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'conscientiousness');
+      drawProgress(extraversion, data.document_tone.tone_categories[2].tones[2].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'extraversion');
+      drawProgress(agreeableness, data.document_tone.tone_categories[2].tones[3].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'agreeableness');
+      drawProgress(emotionalrange, data.document_tone.tone_categories[2].tones[4].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'emotionalrange');
 
 
     }
   });
 }
-function endlog(){
-  console.log("ended");
-}
-function updateData(data) {
-  //parse emotions (first category)
-  var empty = 0;
-  var tones = data.document_tone.tone_categories[0].tones;
-  for (var i = 0; i < tones.length; i++) {
-    emotions[i].value = tones[i].score;
+function textFromPercentage(percentage, type){
+  var likely;
+  if (percentage>0.5){
+    likely = ' likely';
   }
-  tones = data.document_tone.tone_categories[1].tones;
-  for (var i = 0; i < tones.length; i++) {
-    lang[i].value = tones[i].score;
-    if (tones[i].score == 0) {
-      empty++;
-    }
-    if (empty>1) {
-      lang.show = false;
-    }
-    else {
-      lang.show = true;
-    }
+  else{
+    likely = ' unlikely';
   }
-  tones = data.document_tone.tone_categories[2].tones;
-  for (var j = 0; j < tones.length; j++) {
-    social[j].value = tones[j].score;
+  if (type === "emotion") {
+    return Math.floor(percentage*100)/100 + likely;
   }
 }
+function drawProgress(container, p, color, colorlight, label) {
+  var bar = new ProgressBar.Line(container, {
+    strokeWidth: 1,
+    easing: 'easeInOut',
+    duration: 1400,
 
+    color: color,
+    trailColor: colorlight,
+    trailWidth: 1,
+    svgStyle: {width: '100%', height: '30px'}
+  });
+
+  bar.animate(p);  // Number from 0.0 to 1.0
+
+  var id = jQuery(container).attr('id');
+return bar;
+}
+function debug() {
+  globalsettings.emotions = {};
+  globalsettings.language = {};
+  globalsettings.social = {};
+
+
+drawProgress(anger, 0.1 , 'rgba(239,59,69,0.4)' , 'rgba(239,59,69,0.3)', 'anger');
+drawProgress(disgust, 0.8 , 'rgba(142,73,156,0.4)' , 'rgba(142,73,156,0.3)', 'disgust');
+drawProgress(fear, 0.32 , 'rgba(127,137,55,0.4)' , 'rgba(127,137,55,0.3)', 'fear');
+drawProgress(joy, 0.1 , 'rgba(236,209,47,0.4)' , 'rgba(236,209,47,0.3)', 'joy');
+drawProgress(sadness, 0.85 , 'rgba(88,154,200,0.4)' , 'rgba(88,154,200,0.3)', 'sadness');
+
+drawProgress(analytical, 0.6 , 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)','analytical');
+drawProgress(confident, 0.5 , 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)','confident');
+drawProgress(tentative, 0.2 , 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)', 'tentative');
+
+drawProgress(openness, 0.7 , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'openness');
+drawProgress(conscientiousness, 0.5 , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'conscientiousness');
+drawProgress(extraversion, 0.4 , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'extraversion');
+drawProgress(agreeableness, 0.7 , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'agreeableness');
+drawProgress(emotionalrange, 0.8 , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'emotionalrange');
+
+}
+function setRadioButtonBackgrounds(){
+  jQuery('.dizmo-radiobutton .dizmo-radiobutton-label span.dizmo-radiobutton-label-image').css('background-image', 'url(style/radiobutton-unchecked.svg)');
+  jQuery('.dizmo-radiobutton .dizmo-radiobutton-input:checked + .dizmo-radiobutton-label span.dizmo-radiobutton-label-image').css('background-image', 'url(style/radiobutton-checked.svg)');
+}
 // As soon as the dom is loaded, and the dizmo is ready, instantiate the main class
 window.document.addEventListener('dizmoready', function() {
     // Your code should be in here so that it is secured that the dizmo is fully loaded
@@ -158,37 +128,68 @@ window.document.addEventListener('dizmoready', function() {
         dizmo.showFront();
     };
 
-    dizmo.setHeight(811);
-    dizmo.setWidth(935);
-    dizmo.canDock(true);
-    dizmo.setAttribute('settings/frameopacity', 0);
-    DizmoElements('#analyze-button').on('click',function(){
-      text = jQuery('textarea').val();
-      if (text !== "") {
-        jQuery('#charts').empty();
-        jQuery('#loading-overlay').show();
-      }
-      getAnalysisFromText();
-    });
-    dizmo.onDock(function(dockingDizmo){
-      console.log('Docked to dizmo with id ' + dockingDizmo.identifier);
-      console.log('text: ' + dockingDizmo.publicStorage.getProperty('stdout'));
-      if (dockingDizmo.publicStorage.getProperty('stdout') !== "") {
-        DizmoElements('textarea').val(dockingDizmo.publicStorage.getProperty('stdout'));
-        jQuery('#analyze-button').click();
-      }
+dizmo.setHeight(550);
+dizmo.setWidth(400);
+dizmo.setAttribute('settings/title', "Tone Analyzer");
+jQuery('#front').css('background-image', 'url(style/background.png)');
+setRadioButtonBackgrounds();
+debug();
 
-      subscriptionId = dockingDizmo.publicStorage.subscribeToProperty('stdout', function(path, val, oldVal) {
-        var stdout = val;
-        // do something with the stdout variable
-        DizmoElements('textarea').val(stdout);
-        jQuery('#analyze-button').click();
-      });
-    });
-    dizmo.onUndock(function(undockedDizmo) {
-      dizmo.publicStorage.unsubscribeProperty(subscriptionId);
-    });
 
+jQuery('#navigation-tab button').on('click', function(){
+  jQuery('#navigation-tab button').css('background', 'none');
+  jQuery('#navigation-tab button').css('color', 'rgb(87,151,229)');
+
+
+  jQuery(this).css('background-color', 'rgb(87,151,229)');
+  jQuery(this).css('color', 'white');
+  jQuery(this).css('padding-left', '20px');
+
+  jQuery(this).css('padding-right', '20px');
+  jQuery(this).css('border-color', 'rgb(87,151,229)');
+
+  selectedView = jQuery(this).attr('view');
+
+  jQuery('.front-view').hide();
+  jQuery('#' + selectedView).show();
+});
+
+jQuery('input[type=radio]').on('click', function(){
+  setRadioButtonBackgrounds();
+});
+
+jQuery('input[name=emotion]').on('click', function(){
+  selectedEmotion = jQuery('input[name=emotion]:checked').val();
+});
+
+jQuery('input[name=language]').on('click', function(){
+  selectedLanguage = jQuery('input[name=language]:checked').val();
+});
+
+jQuery('input[name=social]').on('click', function(){
+  selectedSocial = jQuery('input[name=social]:checked').val();
+});
+
+jQuery('#emotion-btn').click();
+
+
+jQuery('#analyse-btn').on('click', function(){
+
+  jQuery('#default-logo').hide();
+  jQuery('#loading-icon').show();
+  setTimeout(function(){
+  jQuery('svg').remove();
+  jQuery('#loading-icon').hide();
+  jQuery('#default-display').hide();
+  jQuery('#views').show();
+  jQuery('#navigation-tab').show();
+  debug();
+}, 3000);
+});
+
+globalsettings.emotions = {};
+globalsettings.language = {};
+globalsettings.social = {};
 
 
 });
