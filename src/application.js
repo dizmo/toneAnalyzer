@@ -1,6 +1,6 @@
 // If your dizmo has a back side, include this function. Otherwise you
 // can delete it!
-var selectedView, selectedEmotion, selectedLanguage, selectedSocial;
+var selectedView, selectedEmotion, selectedLanguage, selectedSocial, subscriptionId;
 var globalsettings = {};
 
 var data, ajax,subscriptionId;
@@ -19,7 +19,45 @@ function make_base_auth(user, password) {
   var hash = btoa(tok);
   return "Basic " + hash;
 }
+function getIndexFromSeleciton(selection){
+  switch (selection) {
+    case "anger":
+      return 0;
+    case "disgust":
+      return 1;
+    case "fear":
+      return 2;
+    case "joy":
+      return 3;
+    case "disgust":
+      return 4;
 
+    case "analytical":
+      return 0;
+    case "confident":
+      return 1;
+    case "tentative":
+      return 2;
+
+    case "openness":
+      return 0;
+    case "conscientiousness":
+      return 1;
+    case "extraversion":
+      return 2;
+    case "agreeableness":
+      return 3;
+    case "emotionalrange":
+      return 4;
+
+    case "emotion":
+      return 0;
+    case "language":
+      return 1;
+    case "social":
+      return 2;
+  }
+}
 function getAnalysisFromText(){
   ajax = $.ajax({
     type: "POST",
@@ -35,31 +73,39 @@ function getAnalysisFromText(){
       data = res;
       jQuery('svg').remove();
 
+      jQuery('#loading-icon').hide();
+      jQuery('#default-display').hide();
+      jQuery('#views').show();
+      jQuery('#navigation-tab').show();
+
       drawProgress(anger, data.document_tone.tone_categories[0].tones[0].score , 'rgba(239,59,69,0.4)' , 'rgba(239,59,69,0.3)', 'anger');
       jQuery('#anger .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[0].score, "emotion"));
-
       drawProgress(disgust, data.document_tone.tone_categories[0].tones[1].score , 'rgba(142,73,156,0.4)' , 'rgba(142,73,156,0.3)', 'disgust');
       jQuery('#disgust .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[1].score, "emotion"));
-
       drawProgress(fear, data.document_tone.tone_categories[0].tones[2].score , 'rgba(127,137,55,0.4)' , 'rgba(127,137,55,0.3)', 'fear');
       jQuery('#fear .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[2].score, "emotion"));
-
       drawProgress(joy, data.document_tone.tone_categories[0].tones[3].score , 'rgba(236,209,47,0.4)' , 'rgba(236,209,47,0.3)', 'joy');
       jQuery('#joy .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[3].score, "emotion"));
-
       drawProgress(sadness, data.document_tone.tone_categories[0].tones[4].score , 'rgba(88,154,200,0.4)' , 'rgba(88,154,200,0.3)', 'sadness');
       jQuery('#sadness .percentage').text(textFromPercentage(data.document_tone.tone_categories[0].tones[4].score, "emotion"));
 
-
       drawProgress(analytical, data.document_tone.tone_categories[1].tones[0].score , 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)','analytical');
+      jQuery('#analytical .percentage').text(textFromPercentage(data.document_tone.tone_categories[1].tones[0].score, "emotion"));
       drawProgress(confident, data.document_tone.tone_categories[1].tones[1].score, 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)','confident');
+      jQuery('#confident .percentage').text(textFromPercentage(data.document_tone.tone_categories[1].tones[1].score, "emotion"));
       drawProgress(tentative, data.document_tone.tone_categories[1].tones[2].score , 'rgba(153,153,153,0.4)' , 'rgba(153,153,153,0.3)', 'tentative');
+      jQuery('#tentative .percentage').text(textFromPercentage(data.document_tone.tone_categories[1].tones[2].score, "emotion"));
 
       drawProgress(openness, data.document_tone.tone_categories[2].tones[0].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'openness');
+      jQuery('#openness .percentage').text(textFromPercentage(data.document_tone.tone_categories[2].tones[0].score, "emotion"));
       drawProgress(conscientiousness, data.document_tone.tone_categories[2].tones[1].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'conscientiousness');
+      jQuery('#conscientiousness .percentage').text(textFromPercentage(data.document_tone.tone_categories[2].tones[1].score, "emotion"));
       drawProgress(extraversion, data.document_tone.tone_categories[2].tones[2].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'extraversion');
+      jQuery('#extraversion .percentage').text(textFromPercentage(data.document_tone.tone_categories[2].tones[2].score, "emotion"));
       drawProgress(agreeableness, data.document_tone.tone_categories[2].tones[3].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'agreeableness');
+      jQuery('#agreeableness .percentage').text(textFromPercentage(data.document_tone.tone_categories[2].tones[3].score, "emotion"));
       drawProgress(emotionalrange, data.document_tone.tone_categories[2].tones[4].score , 'rgba(173,200,55,0.4)' , 'rgba(173,200,55,0.3)', 'emotionalrange');
+      jQuery('#emotionalrange .percentage').text(textFromPercentage(data.document_tone.tone_categories[2].tones[4].score, "emotion"));
 
 
     }
@@ -130,6 +176,7 @@ window.document.addEventListener('dizmoready', function() {
 
 dizmo.setHeight(550);
 dizmo.setWidth(400);
+dizmo.canDock(true);
 dizmo.setAttribute('settings/title', "Tone Analyzer");
 jQuery('#front').css('background-image', 'url(style/background.png)');
 setRadioButtonBackgrounds();
@@ -175,16 +222,34 @@ jQuery('#emotion-btn').click();
 
 jQuery('#analyse-btn').on('click', function(){
 
+  jQuery('#default-display').show();
+  jQuery('#views').hide();
+  jQuery('#navigation-tab').hide();
+
+  text = jQuery('#text-input').text();
+  getAnalysisFromText();
   jQuery('#default-logo').hide();
   jQuery('#loading-icon').show();
-  setTimeout(function(){
   jQuery('svg').remove();
-  jQuery('#loading-icon').hide();
-  jQuery('#default-display').hide();
-  jQuery('#views').show();
-  jQuery('#navigation-tab').show();
-  debug();
-}, 3000);
+});
+
+dizmo.onDock(function(dockingDizmo){
+  console.log('Docked to dizmo with id ' + dockingDizmo.identifier);
+  console.log('text: ' + dockingDizmo.publicStorage.getProperty('stdout'));
+  if (dockingDizmo.publicStorage.getProperty('stdout') !== "") {
+    jQuery('#text-input').text(dockingDizmo.publicStorage.getProperty('stdout'));
+    jQuery('#analyse-btn').click();
+  }
+
+  subscriptionId = dockingDizmo.publicStorage.subscribeToProperty('stdout', function(path, val, oldVal) {
+    var stdout = val;
+    // do something with the stdout variable
+    jQuery('#text-input').text(stdout);
+    jQuery('#analyse-btn').click();
+  });
+});
+dizmo.onUndock(function(undockedDizmo) {
+  dizmo.publicStorage.unsubscribeProperty(subscriptionId);
 });
 
 globalsettings.emotions = {};
