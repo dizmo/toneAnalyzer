@@ -8,6 +8,9 @@ body {
 }
 
 #front {
+    position: fixed;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 550px;
     .front-wrapper{
@@ -30,7 +33,7 @@ body {
       }
       #loading-icon{
         display: none;
-        height: 190px;
+        //height: 190px;
         position: relative;
         top: 40px;
       }
@@ -73,6 +76,10 @@ body {
       margin-top: 0px;
       position: absolute;
       top: 40px;
+      span {
+        position: relative;
+        top: 7px;
+      }
       .front-view {
           height: 200px;
           width: 100%;
@@ -112,6 +119,7 @@ body {
         height: 190px;
         overflow-y: scroll;
         border-color: rgba(87,151,229,1);
+        white-space: pre-wrap;
         text-align: left;
         padding: 5px;
       }
@@ -141,10 +149,7 @@ body {
   float: right;
   right: 10px;
 }
-span {
-  position: relative;
-  top: 7px;
-}
+
 svg {
 border-radius: 5px;
 position: relative;

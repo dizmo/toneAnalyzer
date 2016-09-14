@@ -1,6 +1,6 @@
 // If your dizmo has a back side, include this function. Otherwise you
 // can delete it!
-var selectedView, selectedEmotion, selectedLanguage, selectedSocial, subscriptionId;
+var selectedView, selectedEmotion, selectedLanguage, selectedSocial, subscriptionId, desub;
 var globalsettings = {};
 
 var data, ajax,subscriptionId;
@@ -19,7 +19,83 @@ function make_base_auth(user, password) {
   var hash = btoa(tok);
   return "Basic " + hash;
 }
-function getIndexFromSeleciton(selection){
+function appendColoredTextFromSelection(){
+  "use strict";
+  jQuery('#text-input').empty();
+  var sub;
+  if(selectedView == "emotion"){
+    sub = selectedEmotion;
+  }else if (selectedView == "language") {
+    sub = selectedLanguage;
+  }else {
+    sub = selectedSocial;
+  }
+  desub = sub;
+
+  for (var i = 0; i < data.sentences_tone.length; i++) {
+
+
+
+
+    jQuery('#text-input').append('<span id="span' + i +'">' +data.sentences_tone[i].text+  '</span><br>');
+
+    if (data.sentences_tone[i].tone_categories.length > 0) {
+      console.log(data.sentences_tone[i].tone_categories.length);
+      if (data.sentences_tone[i].tone_categories[getIndexFromSelection(selectedView)].tones[getIndexFromSelection(sub)].score > 0.75) {
+        jQuery('#span' + i).attr('class', 'label high');
+      }
+      else if (data.sentences_tone[i].tone_categories[getIndexFromSelection(selectedView)].tones[getIndexFromSelection(sub)].score > 0.5) {
+        jQuery('#span' + i).attr('class', 'label low');
+      }
+      else if (selectedView == "language") {
+        if (data.sentences_tone[i].tone_categories[getIndexFromSelection(selectedView)].tones[getIndexFromSelection(sub)].score > 0) {
+          jQuery('#span' + i).attr('class', 'label low');
+        }
+      }
+    }
+  }
+  jQuery('.low').css('background-color', getBackgroundColor('low'));
+  jQuery('.high').css('background-color', getBackgroundColor('high'));
+}
+function getBackgroundColor(level){
+  var color;
+if (selectedView == "language") {
+  color = 'rgba(153,153,153,';
+}
+else if (selectedView == "social") {
+  color = 'rgba(173,200,55,';
+}
+else {
+  switch (selectedEmotion) {
+    case 'anger':
+      color = 'rgba(239,59,69,';
+      break;
+    case 'disgust':
+      color = 'rgba(142,73,156,';
+      break;
+    case 'fear':
+      color = 'rgba(127,137,55,';
+      break;
+    case 'joy':
+      color = 'rgba(236,209,47,';
+      break;
+    case 'sadness':
+      color = 'rgba(88,154,200,';
+      break;
+
+  }
+}
+
+
+
+  if (level === 'high') {
+    return color + '0.7)';
+  }
+  else {
+    return color + '0.35)';
+  }
+}
+function getIndexFromSelection(selection){
   switch (selection) {
     case "anger":
       return 0;
@@ -29,7 +105,7 @@ function getIndexFromSeleciton(selection){
       return 2;
     case "joy":
       return 3;
-    case "disgust":
+    case "sadness":
       return 4;
 
     case "analytical":
@@ -207,14 +283,17 @@ jQuery('input[type=radio]').on('click', function(){
 
 jQuery('input[name=emotion]').on('click', function(){
   selectedEmotion = jQuery('input[name=emotion]:checked').val();
+  appendColoredTextFromSelection();
 });
 
 jQuery('input[name=language]').on('click', function(){
   selectedLanguage = jQuery('input[name=language]:checked').val();
+  appendColoredTextFromSelection();
 });
 
 jQuery('input[name=social]').on('click', function(){
   selectedSocial = jQuery('input[name=social]:checked').val();
+  appendColoredTextFromSelection();
 });
 
 jQuery('#emotion-btn').click();
