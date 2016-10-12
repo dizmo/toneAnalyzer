@@ -6,8 +6,8 @@ var globalsettings = {};
 var data, ajax,subscriptionId;
 //
 var baseurl = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19";
-var username = "0494a328-abab-461f-a56a-ef5cb78b7fec";
-var password = "PNRn7Sl4tMjl";
+var username = "e93b137d-6073-4388-8414-038c0a933531";
+var password = "XcpjZT4TwMEv";
 var text;
 
 //
