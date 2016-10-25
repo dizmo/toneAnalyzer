@@ -49,25 +49,29 @@ body {
       button{
         color: rgb(87,151,229);
         border-color: rgb(87,151,229);
-        padding: 3px 22px 3px;
+        padding: 3px 8px 3px;
 
       }
       #emotion-btn{
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
         border-right: none;
+        width: calc(100%/3 - 25px);
       }
       #language-btn{
         border-radius: 0px;
         position: relative;
         left: -9px;
+        width: calc(100%/3 + 7px);
       }
       #social-btn{
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
         border-left: none;
         position: relative;
-        left: -18px;
+        // left: -18px;
+        left: -14px;
+        width: calc(100%/3 + 10px);
       }
     }
     #views{
