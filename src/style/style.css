@@ -1,0 +1,139 @@
+.no-dizmo-drag {
+  -apple-dashboard-region: dashboard-region(control rectangle); }
+
+body {
+  margin: 0px;
+  padding: 0px; }
+
+#front {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 550px; }
+  #front .front-wrapper {
+    width: 380px;
+    margin: 10px 10px 0px 10px; }
+  #front svg {
+    z-index: 10; }
+  #front #default-display {
+    width: 400px;
+    height: 280px;
+    text-align: center; }
+    #front #default-display #default-logo {
+      height: 200px;
+      position: relative;
+      top: 40px; }
+    #front #default-display #loading-icon {
+      display: none;
+      position: relative;
+      top: 40px; }
+  #front #navigation-tab {
+    display: none;
+    width: 392px;
+    height: 40px;
+    margin-top: 0px;
+    padding-top: 10px; }
+    #front #navigation-tab button {
+      color: #5797e5;
+      border-color: #5797e5;
+      padding: 3px 8px 3px; }
+    #front #navigation-tab #emotion-btn {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-right: none;
+      width: calc(100%/3 - 25px); }
+    #front #navigation-tab #language-btn {
+      border-radius: 0px;
+      position: relative;
+      left: -9px;
+      width: calc(100%/3 + 7px); }
+    #front #navigation-tab #social-btn {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-left: none;
+      position: relative;
+      left: -14px;
+      width: calc(100%/3 + 10px); }
+  #front #views {
+    display: none;
+    height: 240px;
+    margin-top: 0px;
+    position: absolute;
+    top: 40px; }
+    #front #views span {
+      position: relative;
+      top: 7px; }
+    #front #views .front-view {
+      height: 200px;
+      width: 100%;
+      display: none;
+      position: absolute;
+      top: 0px; }
+      #front #views .front-view .bar-wrapper {
+        margin-top: 10px;
+        height: 30px; }
+      #front #views .front-view .dizmo-radiobutton {
+        float: right;
+        position: relative;
+        left: 10px;
+        top: -3px; }
+      #front #views .front-view .icon {
+        height: 30px;
+        float: left; }
+  #front #text-input-wrapper {
+    position: absolute;
+    top: 280px;
+    height: 240px;
+    text-align: center;
+    margin-top: 0px; }
+    #front #text-input-wrapper #text-input {
+      background-color: rgba(87, 151, 229, 0.15);
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 5px;
+      height: 190px;
+      overflow-y: scroll;
+      border-color: #5797e5;
+      white-space: pre-wrap;
+      text-align: left;
+      padding: 5px; }
+    #front #text-input-wrapper #analyse-btn {
+      position: relative;
+      top: 10px;
+      background-color: #5797e5;
+      border-color: #5797e5;
+      color: white;
+      padding: 2px 25px 3px; }
+
+.bar {
+  width: 290px;
+  height: 30px;
+  border-width: 1px;
+  border-radius: 4px;
+  float: left;
+  margin-left: 10px; }
+
+.label {
+  left: 10px; }
+
+.percentage {
+  float: right;
+  right: 10px; }
+
+svg {
+  border-radius: 5px;
+  position: relative;
+  top: -19px;
+  z-index: -1; }
+
+#back .done-btn-wrapper {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  text-align: center; }
+  #back .done-btn-wrapper .done-btn {
+    margin-bottom: 20px; }
+
+/*# sourceMappingURL=style.css.map */

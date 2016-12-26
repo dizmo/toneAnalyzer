@@ -1,0 +1,106 @@
+.no-dizmo-drag {
+  -apple-dashboard-region: dashboard-region(control rectangle); }
+
+body {
+  margin: 0px;
+  padding: 0px; }
+
+#front {
+  width: 100%; }
+  #front #maintext {
+    white-space: pre-wrap; }
+  #front * {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    line-height: 1.65; }
+  #front img {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block; }
+  #front body,
+  #front .body-wrap {
+    width: 100% !important;
+    height: 100%;
+    background: #efefef;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: none; }
+  #front a {
+    color: #71bc37;
+    text-decoration: none; }
+  #front .text-center {
+    text-align: center; }
+  #front .text-right {
+    text-align: right; }
+  #front .text-left {
+    text-align: left; }
+  #front .button {
+    display: inline-block;
+    color: white;
+    background: #71bc37;
+    border: solid #71bc37;
+    border-width: 10px 20px 8px;
+    font-weight: bold;
+    border-radius: 4px; }
+  #front h1, #front h2, #front h3, #front h4, #front h5, #front h6 {
+    margin-bottom: 20px;
+    line-height: 1.25; }
+  #front h1 {
+    font-size: 32px; }
+  #front h2 {
+    font-size: 28px; }
+  #front h3 {
+    font-size: 24px; }
+  #front h4 {
+    font-size: 20px; }
+  #front h5 {
+    font-size: 16px; }
+  #front p, #front ul, #front ol {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 20px; }
+  #front .container {
+    display: block !important;
+    clear: both !important;
+    margin: 0 auto !important;
+    max-width: 580px !important; }
+  #front .container table {
+    width: 100% !important;
+    border-collapse: collapse; }
+  #front .container .masthead {
+    padding: 80px 0;
+    background: #71bc37;
+    color: white; }
+  #front .container .masthead h1 {
+    margin: 0 auto !important;
+    max-width: 90%;
+    text-transform: uppercase; }
+  #front .container .content {
+    background: white;
+    padding: 30px 35px; }
+  #front .container .content.footer {
+    background: none; }
+  #front .container .content.footer p {
+    margin-bottom: 0;
+    color: #888;
+    text-align: center;
+    font-size: 14px; }
+  #front .container .content.footer a {
+    color: #888;
+    text-decoration: none;
+    font-weight: bold; }
+
+#back {
+  text-align: center;
+  margin-top: 10px; }
+  #back .done-btn-wrapper {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: center; }
+    #back .done-btn-wrapper .done-btn {
+      margin-bottom: 20px; }
+
+/*# sourceMappingURL=style.css.map */
