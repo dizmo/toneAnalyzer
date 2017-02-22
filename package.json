@@ -1,0 +1,68 @@
+{
+  "dependencies": {},
+  "description": "starter dizmo for developers",
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "gulp": "^3.9.1",
+    "gulp-copy": "^1.0.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-plist": "^0.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-sync": "^0.1.4",
+    "gulp-uglify": "^2.0.1",
+    "gulp-util": "^3.0.8",
+    "gulp-ver": "^0.1.0",
+    "gulp-zip": "^4.0.0",
+    "lodash": "^4.17.4",
+    "rimraf": "^2.5.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0"
+  },
+  "dizmo": {
+    "build": {
+      "lint": true,
+      "minify": {
+        "markups": true,
+        "scripts": true,
+        "styles": true
+      }
+    },
+    "install-to": "",
+    "settings": {
+      "bundle-name": "IBM Tone Analyzer",
+      "bundle-identifier": "com.ibm.wiab.toneanalyzer",
+      "display-name": "IBM Tone Analyzer",
+      "height": 300,
+      "width": 250
+    }
+  },
+  "keywords": [
+    "analyzer",
+    "dizmo",
+    "tone"
+  ],
+  "license": "ISC",
+  "name": "IbmToneAnalyzer",
+  "person": {
+    "name": "Hasan Karahan",
+    "email": "hkarahan@dizmo.com"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dizmo/toneAnalyzer"
+  },
+  "scripts": {
+    "clean": "node ./node_modules/gulp/bin/gulp.js clean",
+    "install": "node ./node_modules/gulp/bin/gulp.js install",
+    "lint": "node ./node_modules/gulp/bin/gulp.js lint",
+    "make": "node ./node_modules/gulp/bin/gulp.js",
+    "test": "exit 0",
+    "watch": "node ./node_modules/gulp/bin/gulp.js watch"
+  },
+  "version": "0.6.0"
+}
