@@ -34,7 +34,7 @@
     "install-to": "",
     "settings": {
       "bundle-name": "IBM Tone Analyzer",
-      "bundle-identifier": "com.ibm.wiab.toneanalyzer",
+      "bundle-identifier": "com.ibm.toneanalyzer",
       "display-name": "IBM Tone Analyzer",
       "height": 300,
       "width": 250
