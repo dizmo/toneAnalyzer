@@ -31,7 +31,6 @@
         "styles": true
       }
     },
-    "install-to": "",
     "settings": {
       "bundle-name": "IBM Tone Analyzer",
       "bundle-identifier": "com.ibm.toneanalyzer",
