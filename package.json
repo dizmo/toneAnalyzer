@@ -1,4 +1,4 @@
-{
+{ 
   "dependencies": {},
   "description": "starter dizmo for developers",
   "devDependencies": {
@@ -63,5 +63,5 @@
     "test": "exit 0",
     "watch": "node ./node_modules/gulp/bin/gulp.js watch"
   },
-  "version": "0.6.0"
+  "version": "0.8.1"
 }
