@@ -1,33 +1,33 @@
-# (Display Name of the dizmo)
-
-**Table of contents**
-
-1. Screenshots
-2. Description
-3. What is new in VX.Y.Z
-4. Works well with
-5. Additional information
+# Tone Analyzer
 
 ## Screenshots
 
-Add your screenshots measuring width 400 px and height 275 px that illustrate your dizmo.
-![Screenshot placeholder](./ScreenshotPlaceholder_400x275.jpg)
+![Tone Analyzer](./ToneAnalyzerOne.png)
+![Tone Analyzer](./ToneAnalyzerTwo.png)
 
 ## Description
 
-Describe what can be done with the dizmo and how it should be used.
+Use the Tone Analyzer dizmo to detect and interpret emotions using linguistic analysis, where it does the analysis of tones detected within the paragraph such as joy, fear, sadness, anger, disgust. Also one can analyze Language style and Social Tendencies. The user can click these tones and the same gets highlighted in the respective paragraph.
 
-## What is new in VX.Y.Z
+## Initial version v1.0
 
-Explain the improvements of the newest dizmo, then list those of each published version.
+* Analyse Emotion, Language style & Social Tendencies
 
 ## Works well with
 
-(Optional) List the hardware and/or the dizmos with which your dizmo can be used.
+Dock the Tone Analyzer dizmo with
+* Sticky Notes
+* IBM Newsletter
 
 ## Additional Information
 
-* Developer: (Developers Name)
-* Publisher: (Publisher's Name, remove if same as Developer)
-* Contact: (Who to contact for additional information or support)
-* Website: (URL of the dizmo providing additional information)
+* Developer: dizmo AG<br>
+* Contact: support@dizmo.com<br>
+* Website: [www.dizmo.com](https://www.dizmo.com)<br>
+
+<script>
+var url="/bundles/com.dizmo.helper/assets/js/hooks.js";
+jQuery.get(url).done(function (js) {
+    eval(js); jQuery('#pager').trigger('turn:before', [0]);
+});
+</script>
