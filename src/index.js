@@ -5,7 +5,7 @@ var globalsettings = {};
 
 var data, ajax,subscriptionId;
 //
-var baseurl = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19";
+var baseurl = "http://localhost:3000/tone";
 var username = "";
 var password = "";
 var text;
@@ -129,17 +129,14 @@ function getIndexFromSelection(selection){
     return 2;
   }
 }
-function getAnalysisFromText(){
+function getAnalysisFromText(input){
   ajax = $.ajax({
     type: "POST",
     url: baseurl,
     dataType: 'json',
-    contentType: 'text/plain',
+    contentType: 'application/json',
     async: true,
-    data: text,
-    beforeSend: function (xhr){
-      xhr.setRequestHeader('Authorization', make_base_auth(username, password));
-    },
+    data: JSON.stringify({text: input}),
     success: function (res){
       data = res;
       jQuery('svg').remove();
@@ -303,7 +300,7 @@ window.document.addEventListener('dizmoready', function() {
     jQuery('#navigation-tab').hide();
 
     text = jQuery('#text-input').text();
-    getAnalysisFromText();
+    getAnalysisFromText(text);
     jQuery('#default-logo').hide();
     jQuery('#loading-icon').show();
     jQuery('svg').remove();
