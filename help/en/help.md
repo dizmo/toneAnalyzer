@@ -7,7 +7,7 @@
 
 ## Description
 
-Use the Tone Analyzer dizmo to detect and interpret emotions using linguistic analysis, where it does the analysis of tones detected within the paragraph such as joy, fear, sadness, anger, disgust. Also one can analyze Language style and Social Tendencies. The user can click these tones and the same gets highlighted in the respective paragraph.
+Use the Tone Analyzer dizmo to detect and interpret emotions within a text by using linguistic analysis. Tones such as joy, fear, sadness, anger and disgust can be detected. Language style and social tendencies can also be analysed. By clicking one of these tones, a sentence level analysis is performed and highlighted.
 
 ## Initial version v1.0
 
