@@ -5,7 +5,7 @@ var globalsettings = {};
 
 var data, ajax,subscriptionId;
 //
-var baseurl = "http://toneanalyzer.dizmo.com/tone";
+var baseurl = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19";
 var username = "";
 var password = "";
 var text;
@@ -129,14 +129,17 @@ function getIndexFromSelection(selection){
     return 2;
   }
 }
-function getAnalysisFromText(input){
+function getAnalysisFromText(){
   ajax = $.ajax({
     type: "POST",
     url: baseurl,
     dataType: 'json',
-    contentType: 'application/json',
+    contentType: 'text/plain',
     async: true,
-    data: JSON.stringify({text: input}),
+    data: text,
+    beforeSend: function (xhr){
+      xhr.setRequestHeader('Authorization', make_base_auth(username, password));
+    },
     success: function (res){
       data = res;
       jQuery('svg').remove();
@@ -300,7 +303,7 @@ window.document.addEventListener('dizmoready', function() {
     jQuery('#navigation-tab').hide();
 
     text = jQuery('#text-input').text();
-    getAnalysisFromText(text);
+    getAnalysisFromText();
     jQuery('#default-logo').hide();
     jQuery('#loading-icon').show();
     jQuery('svg').remove();
