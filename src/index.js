@@ -5,7 +5,7 @@ var globalsettings = {};
 
 var data, ajax,subscriptionId;
 //
-var baseurl = "http://134.168.47.163/tone";
+var baseurl = "http://toneanalyzer.dizmo.com/tone";
 var username = "";
 var password = "";
 var text;
