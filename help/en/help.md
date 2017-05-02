@@ -2,8 +2,8 @@
 
 ## Screenshots
 
-![Tone Analyzer](./ToneAnalyzerOne.png)
-![Tone Analyzer](./ToneAnalyzerTwo.png)
+![slide](./ToneAnalyzerOne.png)
+![slide](./ToneAnalyzerTwo.png)
 
 ## Description
 
@@ -26,7 +26,7 @@ Dock the Tone Analyzer dizmo with
 * Website: [www.dizmo.com](https://www.dizmo.com)<br>
 
 <script>
-var url = MarkdownReader.Main.resolve('../../js/hooks.js');
+var url="/bundles/com.dizmo.helper/assets/js/hooks.js";
 jQuery.get(url).done(function (js) {
     eval(js); jQuery('#pager').trigger('turn:before', [0]);
 });
